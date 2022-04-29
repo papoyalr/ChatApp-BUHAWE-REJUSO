@@ -1,0 +1,23 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             x:Class="ChatApp.Pages.ResetPassPage"
+             Title="ChatApp Reset Password">
+    <ContentPage.Content>
+        <Grid>
+            <StackLayout Padding="10" VerticalOptions="Center">
+                <Frame x:Name="Frame1" Style="{StaticResource FrameStyle}">
+                    <Entry x:Name="Email" Focused="ChangeColor" Placeholder="Email" Keyboard="Email" Style="{StaticResource EntryStyle}"/>
+                </Frame>
+                <Button Text="Send Reset Password Email" Clicked="SendEmailAction" Style="{StaticResource ButtonStyle}"/>
+            </StackLayout>
+
+            <StackLayout x:Name="bg" IsVisible="False" Style="{StaticResource LoadingBGStyle}">
+                <ActivityIndicator x:Name="actvty_indctr" IsEnabled="False" IsVisible="False" IsRunning="False" Style="{StaticResource LoadingIndcatorStyle}"/>
+            </StackLayout>
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>

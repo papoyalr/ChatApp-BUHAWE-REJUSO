@@ -1,0 +1,59 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Application xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="ChatApp.App"
+             xmlns:local="clr-namespace:ChatApp.Helpers.ScaleHelper">
+    <Application.Resources>
+        <ResourceDictionary>
+            <local:ScaleXAML x:Key="scale"/>
+            <Style x:Key="EntryStyle" TargetType="Entry">
+                <Setter Property="Keyboard" Value="Chat"/>
+                <Setter Property="ReturnType" Value="Next"/>
+                <Setter Property="Margin" Value="{Binding Converter={StaticResource scale}, ConverterParameter='thickness=5, 0, 5, 0'}"/>
+                <Setter Property="PlaceholderColor" Value="LightGray"/>
+            </Style>
+            <Style x:Key="FrameStyle" TargetType="Frame">
+                <Setter Property="Padding" Value="0"/>
+                <Setter Property="CornerRadius" Value="{Binding Converter={StaticResource scale}, ConverterParameter='width=5'}"/>
+                <Setter Property="BorderColor" Value="Black"/>
+            </Style>
+            <Style x:Key="ProfileStyle" TargetType="Frame">
+                <Setter Property="Padding" Value="8"/>
+                <Setter Property="HasShadow" Value="False"/>
+                <Setter Property="CornerRadius" Value="{Binding Converter={StaticResource scale}, ConverterParameter='width=175'}"/>
+                <Setter Property="WidthRequest" Value="{Binding Converter={StaticResource scale}, ConverterParameter='width=175'}"/>
+                <Setter Property="HeightRequest" Value="{Binding Converter={StaticResource scale}, ConverterParameter='width=175'}"/>
+                <Setter Property="HorizontalOptions" Value="Center"/>
+                <Setter Property="VerticalOptions" Value="Center"/>
+            </Style>
+            <Style x:Key="ShowHidePassStyle" TargetType="Button">
+                <Setter Property="Text" Value="Show"/>
+                <Setter Property="FontSize" Value="13"/>
+                <Setter Property="FontAttributes" Value="Bold"/>
+                <Setter Property="BackgroundColor" Value="LightGray"/>
+                <Setter Property="Padding" Value="0"/>
+                <Setter Property="CornerRadius" Value="{Binding Converter={StaticResource scale}, ConverterParameter='width=5'}"/>
+                <Setter Property="WidthRequest" Value="{Binding Converter={StaticResource scale}, ConverterParameter='width=50'}"/>
+                <Setter Property="HeightRequest" Value="{Binding Converter={StaticResource scale}, ConverterParameter='width=25'}"/>
+                <Setter Property="Margin" Value="{Binding Converter={StaticResource scale}, ConverterParameter='thickness=0, 5, 10, 5'}"/>
+                <Setter Property="HorizontalOptions" Value="End"/>
+            </Style>
+            <Style x:Key="ButtonStyle" TargetType="Button">
+                <Setter Property="CornerRadius" Value="{Binding Converter={StaticResource scale}, ConverterParameter='width=5'}"/>
+                <Setter Property="BackgroundColor" Value="LightGreen"/>
+                <Setter Property="HorizontalOptions" Value="FillAndExpand"/>
+                <Setter Property="Margin" Value="{Binding Converter={StaticResource scale}, ConverterParameter='thickness=0, 5, 0, 0'}"/>
+            </Style>
+            <Style x:Key="LoadingBGStyle" TargetType="StackLayout">
+                <Setter Property="Opacity" Value="0.7"/>
+                <Setter Property="BackgroundColor" Value="Black"/>
+                <Setter Property="HorizontalOptions" Value="Fill"/>
+                <Setter Property="VerticalOptions" Value="FillAndExpand"/>
+            </Style>
+            <Style x:Key="LoadingIndcatorStyle" TargetType="ActivityIndicator">
+                <Setter Property="HorizontalOptions" Value="Center"/>
+                <Setter Property="VerticalOptions" Value="CenterAndExpand"/>
+            </Style>
+        </ResourceDictionary>
+    </Application.Resources>
+</Application>

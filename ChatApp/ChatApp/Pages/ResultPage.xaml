@@ -1,0 +1,72 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="ChatApp.Pages.ResultPage">
+    <ContentPage.Content>
+        <Grid>
+            <StackLayout>
+                <ImageButton Source="CloseIcon.png" BackgroundColor="LightGray" Clicked="ClosePage" WidthRequest="35" HeightRequest="35" Padding="1" HorizontalOptions="End"/>
+                <Grid Padding="5">
+                    <StackLayout HorizontalOptions="Fill" VerticalOptions="Fill" Margin="5,5,5,0">
+                        <Frame Padding="0" 
+                                               CornerRadius="5"
+                                               IsClippedToBounds="True"
+                                               HasShadow="False"
+                                               BorderColor="LightBlue"
+                                               HorizontalOptions="Fill"
+                                               VerticalOptions="FillAndExpand"
+                                               Margin="10,5,10,5">
+                            <Grid RowSpacing="0">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="5*"/>
+                                    <RowDefinition Height="5*"/>
+                                </Grid.RowDefinitions>
+                                <Label Text="Chiz Beloy" Margin="5,0,0,0" x:Name="ItemFrame1"
+                                                       Grid.Row="0" Grid.Column="0"
+                                                       HorizontalOptions="Fill" VerticalOptions="Fill" 
+                                                       HorizontalTextAlignment="Start" VerticalTextAlignment="End"
+                                                       FontSize="Large"/>
+                                <Label Text="raychrisbelarmino@gmail.com" Margin="5,0,0,0" 
+                                                       Grid.Row="1" Grid.Column="0"
+                                                       HorizontalOptions="Fill" VerticalOptions="Fill" 
+                                                       HorizontalTextAlignment="Start" VerticalTextAlignment="Start"
+                                                       FontSize="Medium"/>
+                            </Grid>
+                            <Frame.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="DisplayOverlay1"/>
+                            </Frame.GestureRecognizers>
+                        </Frame>
+                        <Frame Padding="0" 
+                                               CornerRadius="5"
+                                               IsClippedToBounds="True"
+                                               HasShadow="False"
+                                               BorderColor="LightBlue"
+                                               HorizontalOptions="Fill"
+                                               VerticalOptions="FillAndExpand"
+                                               Margin="10,5,10,5">
+                            <Grid RowSpacing="0">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="5*"/>
+                                    <RowDefinition Height="5*"/>
+                                </Grid.RowDefinitions>
+                                <Label Text="Arnold" Margin="5,0,0,0" x:Name="ItemFrame2"
+                                                       Grid.Row="0" Grid.Column="0"
+                                                       HorizontalOptions="Fill" VerticalOptions="Fill" 
+                                                       HorizontalTextAlignment="Start" VerticalTextAlignment="End"
+                                                       FontSize="Large"/>
+                                <Label Text="16100649@usc.edu.ph" Margin="5,0,0,0" 
+                                                       Grid.Row="1" Grid.Column="0"
+                                                       HorizontalOptions="Fill" VerticalOptions="Fill" 
+                                                       HorizontalTextAlignment="Start" VerticalTextAlignment="Start"
+                                                       FontSize="Medium"/>
+                            </Grid>
+                            <Frame.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="DisplayOverlay2"/>
+                            </Frame.GestureRecognizers>
+                        </Frame>
+                    </StackLayout>
+                </Grid>
+            </StackLayout>
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>

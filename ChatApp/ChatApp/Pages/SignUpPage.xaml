@@ -1,0 +1,55 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             x:Class="ChatApp.Pages.SignUpPage">
+    <ContentPage.Content>
+        <Grid>
+            <StackLayout>
+                <Frame  
+                    HasShadow="False" 
+                    BackgroundColor="#1976d2" 
+                    Padding="{Binding Converter={StaticResource scale}, ConverterParameter='width=15'}"
+                    HeightRequest="{Binding Converter={StaticResource scale}, ConverterParameter='width=200'}">
+                    <Image Source="home.png" Aspect="AspectFill"/>
+                </Frame>
+
+                <StackLayout Padding="10">
+                    <Frame x:Name="Frame1" Style="{StaticResource FrameStyle}">
+                        <Entry x:Name="Name" Focused="ChangeColor" Placeholder="Username" Style="{StaticResource EntryStyle}"/>
+                    </Frame>
+                    <Frame x:Name="Frame2" Style="{StaticResource FrameStyle}">
+                        <Entry x:Name="Email" Focused="ChangeColor" Placeholder="Email" Keyboard="Email" Style="{StaticResource EntryStyle}"/>
+                    </Frame>
+                    <Frame x:Name="Frame3" Style="{StaticResource FrameStyle}">
+                        <StackLayout Orientation="Horizontal">
+                            <Entry x:Name="Password" Focused="ChangeColor" Placeholder="Password" IsPassword="True" HorizontalOptions="FillAndExpand" Style="{StaticResource EntryStyle}"/>
+                            <Button x:Name="btn_ShowHide1" Clicked="ShowHidePass" Style="{StaticResource ShowHidePassStyle}"/>
+                        </StackLayout>
+                    </Frame>
+                    <Frame x:Name="Frame4" Style="{StaticResource FrameStyle}">
+                        <StackLayout Orientation="Horizontal">
+                            <Entry x:Name="ConfirmPassword" Focused="ChangeColor" Placeholder="Confirm Password" IsPassword="True" HorizontalOptions="FillAndExpand" Style="{StaticResource EntryStyle}"/>
+                            <Button x:Name="btn_ShowHide2" Clicked="ShowHidePass" Style="{StaticResource ShowHidePassStyle}"/>
+                        </StackLayout>
+                    </Frame>
+
+                    <Button Text="Sign Up" Clicked="SignUpProcess" Style="{StaticResource ButtonStyle}"/>
+                    <Button Text="Sign In to your account" Clicked="LoginPageNavigate" BackgroundColor="LightGray" Style="{StaticResource ButtonStyle}"/>
+
+                    <StackLayout Orientation="Horizontal" HorizontalOptions="Center" Spacing="11" Margin="{Binding Converter={StaticResource scale}, ConverterParameter='thickness=0, 10, 0, 25'}">
+                        <ImageButton Clicked="ButtonAction" Source="GoogleSignUp.png" WidthRequest="{Binding Converter={StaticResource scale}, ConverterParameter='width=148'}"/>
+                        <ImageButton Clicked="ButtonAction" Source="FacebookSignUp.png" WidthRequest="{Binding Converter={StaticResource scale}, ConverterParameter='width=148'}"/>
+                    </StackLayout>
+                </StackLayout>
+            </StackLayout>
+            
+            <StackLayout x:Name="bg" IsVisible="False" Style="{StaticResource LoadingBGStyle}">
+                <ActivityIndicator x:Name="actvty_indctr" IsEnabled="False" IsVisible="False" IsRunning="False" Style="{StaticResource LoadingIndcatorStyle}"/>
+            </StackLayout>
+            
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>
