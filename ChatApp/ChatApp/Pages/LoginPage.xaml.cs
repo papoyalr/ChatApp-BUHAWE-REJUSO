@@ -1,8 +1,14 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
+
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
+using ChatApp.Models;
+using ChatApp.DependencyServices;
 
 
 namespace ChatApp.Pages
@@ -20,32 +26,6 @@ namespace ChatApp.Pages
         private async void SignUpNavigate(object sender, EventArgs e)
         {
             await Navigation.PushAsync(new SignUpPage());
-        }
-
-        private async void SignInNavigate(object sender, EventArgs e)
-        {
-            if (string.IsNullOrEmpty(Email.Text) || string.IsNullOrEmpty(Password.Text))
-            {
-                if (string.IsNullOrEmpty(Email.Text))
-                {
-                    Frame1.BorderColor = Color.Red;
-                }
-
-                if (string.IsNullOrEmpty(Password.Text))
-                {
-                    Frame2.BorderColor = Color.Red;
-                }
-
-                await DisplayAlert("Error", "Missing fields.", "Okay");
-                Email.Text = string.Empty;
-                Password.Text = string.Empty;
-            }
-            else
-            {
-                ToggleIndicator(true);
-                await Navigation.PushAsync(new MainPage());
-            }
-            
         }
 
         private async void ResetPassPageNavigate(object sender, EventArgs e)
@@ -79,12 +59,70 @@ namespace ChatApp.Pages
                 Frame2.BorderColor = Color.Black;
             }
         }
+
         private async void ButtonAction(object sender, EventArgs e)
         {
             ToggleIndicator(true);
             await Task.Delay(2500);
             ToggleIndicator(false);
             await DisplayAlert("", "No functionality.", "Okay");
+        }
+
+        private async void SignInAction(object sender, EventArgs e)
+        {
+            ToggleIndicator(true);
+            await Task.Delay(2500);
+            ToggleIndicator(false);
+            App.Current.Properties["isLoggedIn"] = true;
+            App.Current.MainPage = new MainPage();
+        }
+
+        public async void SignInProcess(object sender, EventArgs e)
+        {
+            if (string.IsNullOrEmpty(Email.Text) || string.IsNullOrEmpty(Password.Text))
+            {
+                if (string.IsNullOrEmpty(Email.Text))
+                {
+                    Frame1.BorderColor = Color.Red;
+                }
+
+                if (string.IsNullOrEmpty(Password.Text))
+                {
+                    Frame2.BorderColor = Color.Red;
+                }
+
+                bool retryBool = await DisplayAlert("Error", "Missing field/s. Retry?", "No", "Yes");
+                if (retryBool)
+                {
+                    Email.Text = string.Empty;
+                    Password.Text = string.Empty;
+                    Email.Focus();
+                }
+            }
+            else
+            {
+                ToggleIndicator(true);
+
+                FirebaseAuthResponseModel res = new FirebaseAuthResponseModel() { };
+                res = await DependencyService.Get<iFirebaseAuth>().LoginWithEmailPassword(Email.Text, Password.Text);
+
+                if (res.Status == true)
+                {
+                    Application.Current.MainPage = new NavigationPage(new MainPage());
+                }
+                else
+                {
+                    bool retryBool = await DisplayAlert("Error", res.Response + " Retry?", "No", "Yes");
+                    if (retryBool)
+                    {
+                        Email.Text = string.Empty;
+                        Password.Text = string.Empty;
+                        Email.Focus();
+                    }
+                }
+
+                ToggleIndicator(false);
+            }
         }
     }
 }

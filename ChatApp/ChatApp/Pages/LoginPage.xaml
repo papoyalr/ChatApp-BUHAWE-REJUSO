@@ -33,7 +33,7 @@
                         </Label.GestureRecognizers>
                     </Label>
 
-                    <Button Text="Sign In" Clicked="SignInNavigate" Style="{StaticResource ButtonStyle}"/>
+                    <Button Text="Sign In" Clicked="SignInProcess" Style="{StaticResource ButtonStyle}"/>
                     <Button Text="Create an Account" Clicked="SignUpNavigate" BackgroundColor="LightGray" Style="{StaticResource ButtonStyle}"/>
 
                     <StackLayout Orientation="Horizontal" Margin="{Binding Converter={StaticResource scale}, ConverterParameter='thickness=0, 5, 0, 5'}">

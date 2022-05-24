@@ -1,13 +1,23 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
+
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
+
+using ChatApp.Models;
+using ChatApp.Helpers;
+using ChatApp.DependencyServices;
+using Plugin.CloudFirestore;
 
 namespace ChatApp.Pages
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class SignUpPage : ContentPage
     {
+        DataClass dataClass = DataClass.GetInstance;
         public SignUpPage()
         {
             InitializeComponent();
@@ -26,48 +36,6 @@ namespace ChatApp.Pages
             actvty_indctr.IsEnabled = show;
             actvty_indctr.IsVisible = show;
             actvty_indctr.IsRunning = show;
-        }
-
-        private async void SignUpProcess(object sender, EventArgs e)
-        {
-            if (string.IsNullOrEmpty(Name.Text) || string.IsNullOrEmpty(Email.Text) || string.IsNullOrEmpty(Password.Text) || string.IsNullOrEmpty(ConfirmPassword.Text))
-            {
-                if (string.IsNullOrEmpty(Name.Text))
-                {
-                    Frame1.BorderColor = Color.Red;
-                }
-
-                if (string.IsNullOrEmpty(Email.Text))
-                {
-                    Frame2.BorderColor = Color.Red;
-                }
-
-                if (string.IsNullOrEmpty(Password.Text))
-                {
-                    Frame3.BorderColor = Color.Red;
-                }
-
-                if (string.IsNullOrEmpty(ConfirmPassword.Text))
-                {
-                    Frame4.BorderColor = Color.Red;
-                }
-
-                await DisplayAlert("Error", "Missing fields.", "Okay");
-            }
-            else if (!Password.Text.Equals(ConfirmPassword.Text))
-            {
-                await DisplayAlert("Error", "Passwords don't match.", "Okay");
-                ConfirmPassword.Text = string.Empty;
-                ConfirmPassword.Focus();
-            }
-            else
-            {
-                ToggleIndicator(true);
-                await Task.Delay(2500);
-                await DisplayAlert("Success", "Sign up successful. Verification email sent.", "Okay");
-                ToggleIndicator(false);
-                await Navigation.PopAsync();
-            }
         }
 
         public void ShowHidePass(object sender, EventArgs e)
@@ -108,6 +76,71 @@ namespace ChatApp.Pages
             await Task.Delay(2500);
             ToggleIndicator(false);
             await DisplayAlert("", "No functionality.", "Okay");
+        }
+
+        public async void SignUpProcess(object sender, EventArgs e)
+        {
+            if (Name.Text.Length == 0 || Email.Text.Length == 0 || Password.Text.Length == 0 || ConfirmPassword.Text.Length == 0)
+            {
+                if (Name.Text.Length == 0)
+                {
+                    Frame1.BorderColor = Color.Red;
+                }
+
+                if (Email.Text.Length == 0)
+                {
+                    Frame2.BorderColor = Color.Red;
+                }
+
+                if (Password.Text.Length == 0)
+                {
+                    Frame3.BorderColor = Color.Red;
+                }
+
+                if (ConfirmPassword.Text.Length == 0)
+                {
+                    Frame4.BorderColor = Color.Red;
+                }
+
+                await DisplayAlert("Error", "Missing field/s.", "Okay");
+            }
+            else if (!Password.Text.Equals(ConfirmPassword.Text))
+            {
+                await DisplayAlert("Error", "Passwords don't match.", "Okay");
+                ConfirmPassword.Text = string.Empty;
+                ConfirmPassword.Focus();
+            }
+            else
+            {
+                ToggleIndicator(true);
+
+                FirebaseAuthResponseModel res = new FirebaseAuthResponseModel() { };
+                res = await DependencyService.Get<iFirebaseAuth>().SignUpWithEmailPassword(Name.Text, Email.Text, Password.Text);
+
+                if (res.Status == true)
+                {
+                    try
+                    {
+                        await CrossCloudFirestore.Current
+                                                 .Instance
+                                                 .Collection("users")
+                                                 .Document(dataClass.loggedInUser.uid)
+                                                 .SetAsync(dataClass.loggedInUser);
+                        await DisplayAlert("Success", res.Response, "Okay");
+                        await Navigation.PopAsync(true);
+                    }
+                    catch (Exception ex)
+                    {
+                        await DisplayAlert("Error", ex.Message, "Okay");
+                    }
+                }
+                else
+                {
+                    await DisplayAlert("Error", res.Response, "Okay");
+                }
+
+                ToggleIndicator(false);
+            }
         }
     }
 }

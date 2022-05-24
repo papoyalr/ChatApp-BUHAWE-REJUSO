@@ -45,7 +45,6 @@ namespace ChatApp.Helpers.ScaleHelper
                 throw new InvalidOperationException($"[{parameter.ToString()}] is an Invalid parameters. Supported parameters are height, width, thickness, fontSize, absolute-WH, absolute-NONE");
             }
 
-       
             if (parameter.ToString().Contains(",") == true)
             {
                 return ConvertToThicknessProperty(parameter.ToString());

@@ -7,8 +7,15 @@
             <StackLayout>
                 <ImageButton Source="CloseIcon.png" BackgroundColor="LightGray" Clicked="ClosePage" WidthRequest="35" HeightRequest="35" Padding="1" HorizontalOptions="End"/>
                 <Grid Padding="5">
-                    <StackLayout HorizontalOptions="Fill" VerticalOptions="Fill" Margin="5,5,5,0">
-                        <Frame Padding="0" 
+                    <ListView x:Name="resultList" ItemsSource="{Binding result}"
+                              HorizontalOptions="Fill" VerticalOptions="Fill"
+                              HasUnevenRows="True" SeparatorVisibility="None"
+                              Margin="5,5,5,0" ItemTapped="resultList_ItemTapped">
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <ViewCell>
+                                    <StackLayout HeightRequest="60">
+                                        <Frame Padding="0"
                                                CornerRadius="5"
                                                IsClippedToBounds="True"
                                                HasShadow="False"
@@ -16,56 +23,30 @@
                                                HorizontalOptions="Fill"
                                                VerticalOptions="FillAndExpand"
                                                Margin="10,5,10,5">
-                            <Grid RowSpacing="0">
-                                <Grid.RowDefinitions>
-                                    <RowDefinition Height="5*"/>
-                                    <RowDefinition Height="5*"/>
-                                </Grid.RowDefinitions>
-                                <Label Text="Chiz Beloy" Margin="5,0,0,0" x:Name="ItemFrame1"
+                                            <Grid RowSpacing="0">
+                                                <Grid.RowDefinitions>
+                                                    <RowDefinition Height="5*"/>
+                                                    <RowDefinition Height="5*"/>
+                                                </Grid.RowDefinitions>
+                                                <Label Text="{Binding name}" Margin="5,0,0,0" 
                                                        Grid.Row="0" Grid.Column="0"
                                                        HorizontalOptions="Fill" VerticalOptions="Fill" 
                                                        HorizontalTextAlignment="Start" VerticalTextAlignment="End"
                                                        FontSize="Large"/>
-                                <Label Text="raychrisbelarmino@gmail.com" Margin="5,0,0,0" 
+                                                <Label Text="{Binding email}" Margin="5,0,0,0" 
                                                        Grid.Row="1" Grid.Column="0"
                                                        HorizontalOptions="Fill" VerticalOptions="Fill" 
                                                        HorizontalTextAlignment="Start" VerticalTextAlignment="Start"
                                                        FontSize="Medium"/>
-                            </Grid>
-                            <Frame.GestureRecognizers>
-                                <TapGestureRecognizer Tapped="DisplayOverlay1"/>
-                            </Frame.GestureRecognizers>
-                        </Frame>
-                        <Frame Padding="0" 
-                                               CornerRadius="5"
-                                               IsClippedToBounds="True"
-                                               HasShadow="False"
-                                               BorderColor="LightBlue"
-                                               HorizontalOptions="Fill"
-                                               VerticalOptions="FillAndExpand"
-                                               Margin="10,5,10,5">
-                            <Grid RowSpacing="0">
-                                <Grid.RowDefinitions>
-                                    <RowDefinition Height="5*"/>
-                                    <RowDefinition Height="5*"/>
-                                </Grid.RowDefinitions>
-                                <Label Text="Arnold" Margin="5,0,0,0" x:Name="ItemFrame2"
-                                                       Grid.Row="0" Grid.Column="0"
-                                                       HorizontalOptions="Fill" VerticalOptions="Fill" 
-                                                       HorizontalTextAlignment="Start" VerticalTextAlignment="End"
-                                                       FontSize="Large"/>
-                                <Label Text="16100649@usc.edu.ph" Margin="5,0,0,0" 
-                                                       Grid.Row="1" Grid.Column="0"
-                                                       HorizontalOptions="Fill" VerticalOptions="Fill" 
-                                                       HorizontalTextAlignment="Start" VerticalTextAlignment="Start"
-                                                       FontSize="Medium"/>
-                            </Grid>
-                            <Frame.GestureRecognizers>
-                                <TapGestureRecognizer Tapped="DisplayOverlay2"/>
-                            </Frame.GestureRecognizers>
-                        </Frame>
-                    </StackLayout>
+                                            </Grid>
+                                        </Frame>
+                                    </StackLayout>
+                                </ViewCell>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
                 </Grid>
+
             </StackLayout>
         </Grid>
     </ContentPage.Content>

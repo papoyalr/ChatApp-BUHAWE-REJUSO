@@ -12,6 +12,7 @@
                 <Frame x:Name="Frame1" Style="{StaticResource FrameStyle}">
                     <Entry x:Name="Email" Focused="ChangeColor" Placeholder="Email" Keyboard="Email" Style="{StaticResource EntryStyle}"/>
                 </Frame>
+
                 <Button Text="Send Reset Password Email" Clicked="SendEmailAction" Style="{StaticResource ButtonStyle}"/>
             </StackLayout>
 

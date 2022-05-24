@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ChatApp.Helpers;
+using System;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -9,11 +10,21 @@ namespace ChatApp
         public static float screenWidth { get; set; }
         public static float screenHeight { get; set; }
         public static float appScale { get; set; }
+
+
+        DataClass dataClass = DataClass.GetInstance;
         public App()
         {
             InitializeComponent();
 
-            MainPage = new NavigationPage(new Pages.LoginPage());
+            if (dataClass.isSignedIn)
+            {
+                MainPage = new NavigationPage(new Pages.MainPage());
+            }
+            else
+            {
+                MainPage = new NavigationPage(new Pages.LoginPage());
+            }
         }
 
         protected override void OnStart()

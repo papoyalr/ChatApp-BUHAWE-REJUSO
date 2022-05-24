@@ -1,8 +1,14 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
+
+using ChatApp.Models;
+using ChatApp.DependencyServices;
 
 namespace ChatApp.Pages
 {
@@ -13,7 +19,7 @@ namespace ChatApp.Pages
         {
             InitializeComponent();
         }
-        
+
         async void LoginPageNavigate(object sender, EventArgs e)
         {
             await Navigation.PopAsync();
@@ -27,6 +33,14 @@ namespace ChatApp.Pages
             actvty_indctr.IsRunning = show;
         }
 
+        public void ChangeColor(object sender, EventArgs e)
+        {
+            if (Email.IsFocused)
+            {
+                Frame1.BorderColor = Color.Black;
+            }
+        }
+
         private async void SendEmailAction(object sender, EventArgs e)
         {
             if (string.IsNullOrEmpty(Email.Text))
@@ -37,18 +51,21 @@ namespace ChatApp.Pages
             else
             {
                 ToggleIndicator(true);
-                await Task.Delay(2500);
-                await DisplayAlert("Success", "Email has been sent to your email address.", "Okay");
-                ToggleIndicator(false);
-                await Navigation.PopAsync();
-            }
-        }
 
-        public void ChangeColor(object sender, EventArgs e)
-        {
-            if (Email.IsFocused)
-            {
-                Frame1.BorderColor = Color.Black;
+                FirebaseAuthResponseModel res = new FirebaseAuthResponseModel() { };
+                res = await DependencyService.Get<iFirebaseAuth>().ResetPassword(Email.Text);
+
+                if (res.Status == true)
+                {
+                    await DisplayAlert("Success", res.Response, "Okay");
+                    await Navigation.PopAsync();
+                }
+                else
+                {
+                    await DisplayAlert("Error", res.Response, "Okay");
+                }
+
+                ToggleIndicator(false);
             }
         }
     }

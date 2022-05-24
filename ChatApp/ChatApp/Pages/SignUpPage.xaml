@@ -45,11 +45,10 @@
                     </StackLayout>
                 </StackLayout>
             </StackLayout>
-            
+
             <StackLayout x:Name="bg" IsVisible="False" Style="{StaticResource LoadingBGStyle}">
                 <ActivityIndicator x:Name="actvty_indctr" IsEnabled="False" IsVisible="False" IsRunning="False" Style="{StaticResource LoadingIndcatorStyle}"/>
             </StackLayout>
-            
         </Grid>
     </ContentPage.Content>
 </ContentPage>
